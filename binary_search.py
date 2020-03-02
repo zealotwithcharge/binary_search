@@ -36,7 +36,7 @@ def count_repeats(xs, x):
 
     >>> count_repeats([5, 4, 3, 3, 3, 3, 3, 3, 3, 2, 1], 3)
     7
-    >>> count_repeats([1, 2, 3], 4)
+    >>> count_repeats([3, 2, 1], 4)
     0
     '''
 
