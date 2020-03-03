@@ -6,7 +6,7 @@ def find_smallest_positive(xs):
     Find the index of the smallest positive number.
     If no such index exists, return `None`.
 
-    HINT: 
+    HINT:
     This is essentially the binary search algorithm from class,
     but you're always searching for 0.
 
@@ -42,7 +42,7 @@ def count_repeats(xs, x):
     and that x is a number.
     Calculate the number of times that x occurs in xs.
 
-    HINT: 
+    HINT:
     Use the following three step procedure:
         1) use binary search to find the lowest index with a value >= x
         2) use binary search to find the lowest index with a value < x
@@ -87,7 +87,7 @@ def _find_upper(xs, x):
             if xs[left]<x:
                 return left
             else:
-                return left+1 
+                return left+1
         mid = (left+right)//2
         if xs[mid] < x:
             right = mid
@@ -109,7 +109,7 @@ def argmin(f, lo, hi, epsilon=1e-3):
         2) For each recursive call:
             a) select two points m1 and m2 that are between lo and hi
             b) one of the 4 points (lo,m1,m2,hi) must be the smallest;
-               depending on which one is the smallest, 
+               depending on which one is the smallest,
                you recursively call your function on the interval [lo,m2] or [m1,hi]
 
     >>> argmin(lambda x: (x-5)**2, -20, 20)
@@ -144,4 +144,48 @@ def argmin(f, lo, hi, epsilon=1e-3):
 
     if f_min==f_hi:
         return argmin(f, m2, hi, epsilon)
+
+
+def find_boundaries(f):
+    '''
+    Returns a tuple (lo,hi).
+    If f is a convex function, then the minimum is guaranteed to be between lo and hi.
+    This function is useful for initializing argmin.
+
+    IMPLEMENTING THIS FUNCTION IS EXTRA CREDIT AND NOT REQUIRED.
+
+    HINT:
+    Begin with initial values (lo=-1, hi=1),
+    and double the values until the values are increasing.
+    '''
+    lo = -2
+    lo_prev = -1
+    f_lo = f(lo)
+    f_lo_prev = f(lo_prev)
+    while f_lo_prev > f_lo:
+        lo_prev = lo
+        f_lo_prev = f_lo
+        lo *= 2
+        f_lo = f(lo)
+
+    hi = 2
+    hi_prev = 1
+    f_hi = f(lo)
+    f_hi_prev = f(lo_prev)
+    while f_hi_prev > f_lo:
+        hi_prev = lo
+        f_hi_prev = f_lo
+        hi *= 2
+        f_hi = f(lo)
+
+    return (lo,hi)
+
+
+def argmin_simple(f, epsilon=1e-3):
+    '''
+    This function is like argmin, but it internally uses the find_boundaries function so that
+    you do not need to specify lo and hi.
+    '''
+    lo,hi = find_boundaries(f)
+    return argmin(f, lo, hi, epsilon)
 
