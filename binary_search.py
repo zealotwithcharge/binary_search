@@ -10,6 +10,9 @@ def find_smallest_positive(xs):
     This is essentially the binary search algorithm from class,
     but you're always searching for 0.
 
+    APPLICATION:
+    This is a classic question for technical interviews.
+
     >>> find_smallest_positive([-3, -2, -1, 0, 1, 2, 3])
     4
     >>> find_smallest_positive([1, 2, 3])
@@ -47,9 +50,13 @@ def count_repeats(xs, x):
         1) use binary search to find the lowest index with a value >= x
         2) use binary search to find the lowest index with a value < x
         3) return the difference between step 1 and 2
+    I highly recommend creating stand-alone functions for steps 1 and 2,
+    and write your own doctests for these functions.
+    Then, once you're sure these functions work independently,
+    completing step 3 will be easy.
 
-    I highly recommend creating stand-alone functions for steps 1 and 2
-    that you can test independently.
+    APPLICATION:
+    This is a classic question for technical interviews.
 
     >>> count_repeats([5, 4, 3, 3, 3, 3, 3, 3, 3, 2, 1], 3)
     7
@@ -111,6 +118,19 @@ def argmin(f, lo, hi, epsilon=1e-3):
             b) one of the 4 points (lo,m1,m2,hi) must be the smallest;
                depending on which one is the smallest,
                you recursively call your function on the interval [lo,m2] or [m1,hi]
+
+    APPLICATION:
+    Essentially all data mining algorithms are just this argmin implementation in disguise.
+    If you go on to take the data mining class (CS145/MATH166),
+    we will spend a lot of time talking about different f functions that can be minimized and their applications.
+    But the actual minimization code will all be a variant of this binary search.
+
+    WARNING:
+    The doctests below are not intended to pass on your code,
+    and are only given so that you have an example of what the output should look like.
+    Your output numbers are likely to be slightly different due to minor implementation details.
+    Writing tests for code that uses floating point numbers is notoriously difficult.
+    See the pytests for correct examples.
 
     >>> argmin(lambda x: (x-5)**2, -20, 20)
     5.000040370009773

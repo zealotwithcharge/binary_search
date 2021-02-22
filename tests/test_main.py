@@ -33,6 +33,14 @@ def test__find_smallest_positive_9():
 def test__find_smallest_positive_10():
     assert find_smallest_positive([-2, -1]) is None
 
+def test__find_smallest_positive_11():
+    assert find_smallest_positive(list(range(-100000, 100000, 47))) == 2128
+
+def test__find_smallest_positive_12():
+    assert find_smallest_positive(list(range(100000, 200000, 47))) == 0
+
+def test__find_smallest_positive_13():
+    assert find_smallest_positive(list(range(-200000, -100000, 47))) is None
 
 
 def test__count_repeats_1():
@@ -64,6 +72,12 @@ def test__count_repeats_9():
 
 def test__count_repeats_10():
     assert count_repeats([],5)==0
+
+def test__count_repeats_11():
+    assert count_repeats([5]*10000+[4,3,2,2,2,1],2)==3
+
+def test__count_repeats_12():
+    assert count_repeats([5]*10000,2)==0
 
 
 
@@ -162,6 +176,14 @@ def test__count_repeats_runtime():
     seconds = timeit.timeit(
         'count_repeats(xs,0)',
         'from binary_search import count_repeats; xs=list(range(100000,-100000,-1))'
+        )
+    print('seconds=',seconds)
+    return True
+
+def test__count_repeats_runtime2():
+    seconds = timeit.timeit(
+        'count_repeats(xs,0)',
+        'from binary_search import count_repeats; xs=[0]*100000'
         )
     print('seconds=',seconds)
     return True
