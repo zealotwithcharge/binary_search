@@ -179,3 +179,11 @@ def test__count_repeats_runtime():
         )
     print('seconds=',seconds)
     return True
+
+def test__count_repeats_runtime2():
+    seconds = timeit.timeit(
+        'count_repeats(xs,0)',
+        'from binary_search import count_repeats; xs=[0]*100000'
+        )
+    print('seconds=',seconds)
+    return True
