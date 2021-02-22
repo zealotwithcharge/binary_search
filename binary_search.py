@@ -172,33 +172,40 @@ def find_boundaries(f):
     If f is a convex function, then the minimum is guaranteed to be between lo and hi.
     This function is useful for initializing argmin.
 
-    IMPLEMENTING THIS FUNCTION IS EXTRA CREDIT AND NOT REQUIRED.
-
     HINT:
-    Begin with initial values (lo=-1, hi=1),
-    and double the values until the values are increasing.
+    Begin with initial values lo=-1, hi=1.
+    Let mid = (lo+hi)/2
+    if f(lo) > f(mid):
+        recurse with lo*=2
+    elif f(hi) < f(mid):
+        recurse with hi*=2
+    else:
+        you're done; return lo,hi
     '''
-    lo = -2
-    lo_prev = -1
+    lo = -1
+    mid = 0
+    hi = 1
     f_lo = f(lo)
-    f_lo_prev = f(lo_prev)
-    while f_lo_prev > f_lo:
-        lo_prev = lo
-        f_lo_prev = f_lo
-        lo *= 2
-        f_lo = f(lo)
+    f_mid = f(mid)
+    f_hi = f(hi)
+    
+    while not (f_lo >= f_mid and f_mid <= f_hi):
+        if f_lo < f_mid:
+            lo_old = lo
+            f_lo_old = f_lo
+            lo *= 2
+            f_lo = f(lo)
+            mid = lo_old
+            f_mid = f_lo_old
+        else:
+            hi_old = hi
+            f_hi_old = f_hi
+            hi *= 2
+            f_hi = f(hi)
+            mid = hi_old
+            f_mid = f_hi_old
 
-    hi = 2
-    hi_prev = 1
-    f_hi = f(lo)
-    f_hi_prev = f(lo_prev)
-    while f_hi_prev > f_lo:
-        hi_prev = lo
-        f_hi_prev = f_lo
-        hi *= 2
-        f_hi = f(lo)
-
-    return (lo,hi)
+    return lo,hi
 
 
 def argmin_simple(f, epsilon=1e-3):
@@ -207,5 +214,6 @@ def argmin_simple(f, epsilon=1e-3):
     you do not need to specify lo and hi.
     '''
     lo,hi = find_boundaries(f)
+    print("lo,hi=",lo,hi)
     return argmin(f, lo, hi, epsilon)
 
