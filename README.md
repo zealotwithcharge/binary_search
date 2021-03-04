@@ -22,7 +22,7 @@ Complete the following tasks:
 
 Optional:
 
-1. You can get 1 point of extra credit if you also implement the `find_boundaries` function so that all test cases in the `tests/test_ec.py` file pass.
+1. You can get 2 points of extra credit if you also implement the `find_boundaries` function so that all test cases in the `tests/test_ec.py` file pass.
    Pseudocode for the function is provided in the `binary_search.py` file.
 
 ## Submission
