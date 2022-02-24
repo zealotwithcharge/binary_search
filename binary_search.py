@@ -26,6 +26,53 @@ def find_smallest_positive(xs):
     >>> find_smallest_positive([-3, -2, -1]) is None
     True
     '''
+    if xs == []:
+        return
+    elif xs[-1] < 0:
+        return
+    if len(xs) == 0:
+        return
+    def search(xs,index=None):
+        print(xs)
+        if len(xs) != 1:
+            mid_index = int(len(xs)/2)
+            mid = xs[mid_index]
+            if mid > 0:
+                index =search(xs[:mid_index])  
+                print(index)
+                return index
+            else:
+                index =search(xs[mid_index:])+mid_index 
+                print(index)
+                return index 
+        else:
+            if xs[0] <= 0:
+                return 1
+            else:
+                return 0
+    return search(xs)
+#    def search(xs)
+#        if len(xs) != 1:
+#            mid_index = int(len(xs)/2)
+#            mid = xs[mid_index]
+#            if mid > 0:
+#                return search(xs[:mid_index])
+#            else:
+#                return search(xs[mid_index:])
+#        else:
+#            print(xs)
+#            return xs[0]
+#    smallest = search(xs)
+#    for i, num in enumerate(xs):
+#        if smallest > 0:
+#            if num == smallest:
+#                return i
+#        else:
+#            if num == smallest:
+#                if len(xs) == i+1:
+#                    return
+#                else:
+#                    return i+1
 
 
 def count_repeats(xs, x):
@@ -52,6 +99,71 @@ def count_repeats(xs, x):
     >>> count_repeats([3, 2, 1], 4)
     0
     '''
+
+    
+    def search(xs,index=None):
+        print(xs)
+        if len(xs) != 1:
+            mid_index = int(len(xs)/2)
+            mid = xs[mid_index]
+            if mid >= x:
+                index =search(xs[:mid_index])  
+                print('in-session ',xs) 
+                print('mid ',mid_index)
+                print('no add ',index)
+                return index
+            else:
+                index =search(xs[mid_index:])+mid_index 
+                print('in-session ',xs) 
+                print('mid ',mid_index)
+                print('added, ',index)
+                return index 
+        else:
+            if xs[0] <= x:
+                return 0 
+            else:
+                return 0
+    def search_down(xs,index=None):
+        print(xs)
+        if len(xs) != 1:
+            mid_index = int(len(xs)/2)
+            mid = xs[mid_index]
+            if mid <= x:
+                index =search_down(xs[mid_index:])+mid_index   
+                print('in-session ',xs) 
+                print('mid ',mid_index)
+                print('no add ',index)
+                print('down ',index)
+                return index
+            else:
+                index =search_down(xs[:mid_index])
+                print('in-session ',xs) 
+                print('mid ',mid_index)
+                print('no add ',index)
+                print('down ',index)
+                return index 
+        else:
+            if xs[0] > x:
+                return 0 
+            else:
+                return 1
+    if xs == []:
+        return 0
+    xs.reverse()
+    print('first ',xs)
+    low_end = search(xs)
+    high_end = search_down(xs)
+    if xs[-1] == x:
+        high_end = len(xs) 
+    if xs[0] == x:
+        low_end = -1 
+    print(low_end)
+    print(high_end)
+    if high_end != low_end:
+        return high_end - low_end -1 
+    else:
+        return 0
+
 
 
 def argmin(f, lo, hi, epsilon=1e-3):
